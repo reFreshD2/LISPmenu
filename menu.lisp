@@ -27,4 +27,22 @@
     (T (cons (list (CAAR availProduct) (- (CADAR availProduct) (findProductCost (CAAR availProduct) productOfRecipe))) (dif (CDR availProduct) productOfRecipe)))
 )
 )
-(print(makeMenu products recipe))
+(defun allMenu (products recipes)
+(cond
+    ((NULL recipes) NIL)
+    (T (cons (makeMenu products (CAR recipes)) (allMenu products (CDR recipes))))
+)
+)
+(defun comb (recipes)
+    (cond
+        ((NULL (CDR recipes)) NIL)
+        (T (cons (list (CAR recipes) (CADR recipes)) (comb (cons (CAR recipes) (CDDR recipes)))))
+    )
+)
+(defun all-comb (recipes)
+(cond
+    ((NULL recipes) NIL)
+    (T (cons (comb recipes) (all-comb (CDR recipes))))
+)
+)
+(print(allMenu products recipe))
